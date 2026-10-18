@@ -1,0 +1,20 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependencias (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y ninja-build libsdl2-dev
+      - name: Ninja (Windows)
+        if: runner.os == 'Windows'
+        run: choco install ninja -y
+      - name: Configurar
+        run: cmake --preset release
+      - name: Compilar
+        run: cmake --build --preset release

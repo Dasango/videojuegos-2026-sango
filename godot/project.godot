@@ -1,0 +1,6 @@
+; Proyecto Godot 4.x (version estandar, GDScript)
+config_version=5
+
+[application]
+config/name="Vertical Slice"
+config/features=PackedStringArray("4.3")

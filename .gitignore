@@ -1,0 +1,12 @@
+build/
+out/
+.vs/
+.idea/
+*.user
+CMakeUserPresets.json
+compile_commands.json
+vcpkg_installed/
+# Godot
+godot/.godot/
+godot/export/
+godot/*.translation

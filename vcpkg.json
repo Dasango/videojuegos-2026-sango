@@ -1,0 +1,10 @@
+{
+  "name": "videojuegos-2026",
+  "version": "1.0.0",
+  "dependencies": [
+    "sdl2",
+    "sdl2-image",
+    "sdl2-mixer",
+    "nlohmann-json"
+  ]
+}
