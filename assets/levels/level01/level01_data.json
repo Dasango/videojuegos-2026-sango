@@ -1,0 +1,1503 @@
+{
+  "name": "Nivel 1 - La Gran Travesía Fluvial",
+  "author": "Antigravity Agent",
+  "description": "Nivel vertical para videojuego retro móvil. El jugador navega desde el puerto inferior hasta el santuario superior sorteando arrecifes, tuberías industriales, vórtices e icebergs.",
+  "grid": {
+    "tile_size": 16,
+    "cols": 20,
+    "rows": 128,
+    "width_px": 320,
+    "height_px": 2048,
+    "aspect_ratio": "5:32 (Vertical Mobile Screen)"
+  },
+  "spawn_point": {
+    "x": 152,
+    "y": 2004,
+    "tile_col": 9,
+    "tile_row": 125,
+    "character": "Capitán Impermeable Amarillo"
+  },
+  "finish_zone": {
+    "x": 48,
+    "y": 0,
+    "width": 224,
+    "height": 64,
+    "trigger": "Y <= 64 px"
+  },
+  "zones": [
+    {
+      "id": 1,
+      "name": "Puerto de Salida (Harbor Basin)",
+      "rows": [
+        112,
+        127
+      ],
+      "y_range_px": [
+        1792,
+        2047
+      ],
+      "theme": "Aguas calmas, muelles de madera y aprendizaje básico de navegación.",
+      "hazards": [
+        "Balsas a la deriva",
+        "Boyas de señalización",
+        "Arrecifes introductorios"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bancos Rocosos y Humedal de Nenúfares",
+      "rows": [
+        88,
+        111
+      ],
+      "y_range_px": [
+        1408,
+        1791
+      ],
+      "theme": "Meandros naturales, juncos, nenúfares y arrecife central bifurcado.",
+      "hazards": [
+        "Puertas de roca",
+        "Rocas sumergidas",
+        "Arrecife central dividido"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Conducto de Aguas Industriales y Tuberías Rojas",
+      "rows": [
+        60,
+        87
+      ],
+      "y_range_px": [
+        960,
+        1407
+      ],
+      "theme": "Canal de hormigón y ladrillo con entramado de tuberías pesadas y vertederos.",
+      "hazards": [
+        "Barrera de tubería y manómetro",
+        "Tubería con vertedero de corriente",
+        "Minas/boyas con púas",
+        "Cruces industriales"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "El Abismo de Vórtices y Pecios",
+      "rows": [
+        36,
+        59
+      ],
+      "y_range_px": [
+        576,
+        959
+      ],
+      "theme": "Rápidos violentos con remolinos voraces y restos náuticos.",
+      "hazards": [
+        "Vórtice Alfa",
+        "Vórtice Beta",
+        "Barrera de redes de pesca",
+        "Tentáculo marino"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Garganta Glacial e Icebergs",
+      "rows": [
+        12,
+        35
+      ],
+      "y_range_px": [
+        192,
+        575
+      ],
+      "theme": "Aguas gélidas turquesas con témpanos afilados y estrechos de hielo.",
+      "hazards": [
+        "Témpanos a la deriva",
+        "Gran Puerta de Icebergs Gemelos",
+        "Agujas de hielo afiladas"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "El Santuario Dorado (Finish Haven)",
+      "rows": [
+        0,
+        11
+      ],
+      "y_range_px": [
+        0,
+        191
+      ],
+      "theme": "Aguas cristalinas en calma, faroles dorados y gran muelle de llegada victoriosa.",
+      "hazards": []
+    }
+  ],
+  "obstacles_count": 91,
+  "obstacles": [
+    {
+      "id": "z1_boat_1",
+      "type": "paper_boat",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 80,
+      "y": 1952,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1954,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z1_buoy_1",
+      "type": "marker_buoy",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 224,
+      "y": 1936,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        1938,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z1_jug_1",
+      "type": "clay_jug",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 176,
+      "y": 1888,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1890,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z1_raft_1",
+      "type": "wooden_raft",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 112,
+      "y": 1840,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        114,
+        1842,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z1_book_1",
+      "type": "ancient_book",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 64,
+      "y": 1808,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        1810,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z1_rock_intro",
+      "type": "rock_small",
+      "zone": "Zone 1 - Harbor Basin",
+      "x": 208,
+      "y": 1792,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        1794,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_gw_left",
+      "type": "rock_cluster",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 64,
+      "y": 1728,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        1730,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_gw_mid",
+      "type": "rock_small",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 128,
+      "y": 1744,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        130,
+        1746,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_gw_right",
+      "type": "rock_cluster",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 224,
+      "y": 1696,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        1698,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_drift_raft",
+      "type": "wooden_raft",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 80,
+      "y": 1664,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1666,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_center",
+      "type": "rock_tall",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 176,
+      "y": 1632,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1634,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_turtle",
+      "type": "turtle_raft",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 128,
+      "y": 1584,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        130,
+        1586,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_sunken_chest",
+      "type": "sunken_chest",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 208,
+      "y": 1552,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        1554,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_left",
+      "type": "rock_flat",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 48,
+      "y": 1520,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        50,
+        1522,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_reef_1",
+      "type": "island_rock_1",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 144,
+      "y": 1472,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        1474,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_reef_2",
+      "type": "island_rock_2",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 160,
+      "y": 1472,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1474,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_reef_3",
+      "type": "island_rock_3",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 144,
+      "y": 1456,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        1458,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_reef_4",
+      "type": "island_rock_4",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 160,
+      "y": 1440,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1442,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_bottle_left",
+      "type": "bottle_msg",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 96,
+      "y": 1456,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        1458,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z2_rock_right_side",
+      "type": "rock_small",
+      "zone": "Zone 2 - Wetland Shoals",
+      "x": 224,
+      "y": 1440,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        1442,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_2",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 32,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        34,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_3",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 48,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        50,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_4",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 64,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_5",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 80,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_6",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 96,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_7",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 112,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        114,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_8",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 128,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        130,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_9",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 144,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_10",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 160,
+      "y": 1328,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1330,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_v_84",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 80,
+      "y": 1344,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1346,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe1_v_85",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 80,
+      "y": 1360,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1362,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_hazard_buoy_1",
+      "type": "spiked_buoy",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 224,
+      "y": 1360,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        1362,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_barrel_1",
+      "type": "clay_jug",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 192,
+      "y": 1296,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        194,
+        1298,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_8",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 128,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        130,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_9",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 144,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_10",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 160,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_11",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 176,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_12",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 192,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        194,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_13",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 208,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_14",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 224,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_15",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 240,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        242,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_16",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 256,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        258,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe2_17",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 272,
+      "y": 1200,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        274,
+        1202,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_drain_water_76",
+      "type": "pipe_waterfall",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 176,
+      "y": 1216,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1218,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_drain_water_77",
+      "type": "pipe_waterfall",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 176,
+      "y": 1232,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1234,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_drain_water_78",
+      "type": "pipe_waterfall",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 176,
+      "y": 1248,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1250,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_mine_1",
+      "type": "spiked_buoy",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 80,
+      "y": 1216,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        1218,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_net_1",
+      "type": "fishing_net",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 48,
+      "y": 1168,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        50,
+        1170,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe3_cross",
+      "type": "pipe_cross",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 160,
+      "y": 1056,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1058,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe3_l",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 144,
+      "y": 1056,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        1058,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe3_r",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 176,
+      "y": 1056,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        1058,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe3_up",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 160,
+      "y": 1040,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1042,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_pipe3_dn",
+      "type": "industrial_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 160,
+      "y": 1072,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        1074,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_broken_pipe_l",
+      "type": "broken_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 48,
+      "y": 1024,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        50,
+        1026,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_broken_pipe_r",
+      "type": "broken_pipe",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 256,
+      "y": 1024,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        258,
+        1026,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z3_cargo_float",
+      "type": "clay_jug",
+      "zone": "Zone 3 - Industrial Pipeline",
+      "x": 96,
+      "y": 1008,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        1010,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_1a",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 80,
+      "y": 848,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        850,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_1b",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 96,
+      "y": 848,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        850,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_1c",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 80,
+      "y": 864,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        866,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_1d",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 96,
+      "y": 864,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        866,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_wreck_1",
+      "type": "sunken_chest",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 224,
+      "y": 880,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        882,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_rock_vortex1",
+      "type": "rock_tall",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 176,
+      "y": 832,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        178,
+        834,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_net_wide_1",
+      "type": "fishing_net",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 64,
+      "y": 768,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        770,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_net_wide_2",
+      "type": "fishing_net",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 80,
+      "y": 768,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        770,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_raft_trap",
+      "type": "wooden_raft",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 96,
+      "y": 752,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        754,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_spiked_drift",
+      "type": "spiked_buoy",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 208,
+      "y": 768,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        770,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_rock_choke",
+      "type": "rock_med",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 240,
+      "y": 736,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        242,
+        738,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_2a",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 192,
+      "y": 640,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        194,
+        642,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_2b",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 208,
+      "y": 640,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        642,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_2c",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 192,
+      "y": 656,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        194,
+        658,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_vortex_2d",
+      "type": "whirlpool",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 208,
+      "y": 656,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        658,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_tentacle",
+      "type": "sea_tentacle",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 112,
+      "y": 624,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        114,
+        626,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z4_paper_boat_lost",
+      "type": "paper_boat",
+      "zone": "Zone 4 - Vortex Chasm",
+      "x": 64,
+      "y": 592,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        594,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_floe_1",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 80,
+      "y": 528,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        530,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_floe_2",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 208,
+      "y": 512,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        514,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_orb_beacon",
+      "type": "crystal_orb",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 144,
+      "y": 496,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        146,
+        498,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_floe_3",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 240,
+      "y": 480,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        242,
+        482,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_floe_4",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 96,
+      "y": 464,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        466,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_iceberg_alpha_1",
+      "type": "iceberg_large",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 80,
+      "y": 384,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        82,
+        386,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_iceberg_alpha_2",
+      "type": "iceberg_spire",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 96,
+      "y": 368,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        98,
+        370,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_iceberg_mid",
+      "type": "iceberg_shelf",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 160,
+      "y": 400,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        402,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_iceberg_beta_1",
+      "type": "iceberg_large",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 208,
+      "y": 368,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        210,
+        370,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_iceberg_beta_2",
+      "type": "iceberg_twin",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 224,
+      "y": 384,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        226,
+        386,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_pinnacle_1",
+      "type": "iceberg_spire",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 64,
+      "y": 288,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        290,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_ice_block_1",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 128,
+      "y": 272,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        130,
+        274,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_pinnacle_2",
+      "type": "iceberg_twin",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 192,
+      "y": 256,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        194,
+        258,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_ice_block_2",
+      "type": "ice_floe",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 240,
+      "y": 240,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        242,
+        242,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z5_final_spire",
+      "type": "iceberg_medium",
+      "zone": "Zone 5 - Glacial Cavern",
+      "x": 112,
+      "y": 208,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        114,
+        210,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z6_haven_buoy_l",
+      "type": "haven_beacon",
+      "zone": "Zone 6 - Finish Sanctuary",
+      "x": 64,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        66,
+        130,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z6_haven_buoy_r",
+      "type": "haven_beacon",
+      "zone": "Zone 6 - Finish Sanctuary",
+      "x": 240,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        242,
+        130,
+        12,
+        12
+      ]
+    },
+    {
+      "id": "z6_haven_orb",
+      "type": "victory_orb",
+      "zone": "Zone 6 - Finish Sanctuary",
+      "x": 160,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "collision_box": [
+        162,
+        98,
+        12,
+        12
+      ]
+    }
+  ]
+}
