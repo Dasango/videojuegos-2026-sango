@@ -1,4 +1,21 @@
-# Minijuego individual (Sumativa 1)
+# Minijuego: La Gran Travesía de la Botella Flotante (Sumativa 1)
 
-Mecanicas de las semanas 5 a 8, sin motor. El alcance exacto lo define el docente.
-Entrega con tag: `git tag entrega-sumativa-1`.
+Implementación en C++ con SDL2 (sin motor externo). 
+
+## Cómo compilar y jugar
+
+```powershell
+# Compilar
+cmake --preset debug
+cmake --build --preset debug
+
+# Ejecutar
+./build/debug/minijuego/minijuego.exe
+```
+
+## Controles
+- `[W]` o `[↑]`: Impulso hacia arriba por el río.
+- `[A]` / `[D]` o `[←]` / `[→]`: Rotar la botella a izquierda y derecha con inercia hidrodinámica.
+- `[S]` o `[↓]`: Frenar / descender.
+- `[R]`: Reiniciar la partida.
+- `[ESC]`: Salir.
