@@ -24,6 +24,9 @@ if(NOT SDL2_FOUND)
   FetchContent_MakeAvailable(SDL2)
 endif()
 
+# SDL2_image opcional (para PNG como premios.png); si no esta, se usa SDL_LoadBMP.
+find_package(SDL2_image CONFIG QUIET)
+
 # Alias uniforme para todos los proyectos del curso.
 # IMPORTANTE: SDL2main debe ir ANTES que SDL2 (MinGW es sensible al orden).
 add_library(course_sdl INTERFACE)
@@ -36,6 +39,11 @@ if(TARGET SDL2::SDL2)
   target_link_libraries(course_sdl INTERFACE SDL2::SDL2)
 else()
   target_link_libraries(course_sdl INTERFACE SDL2-static)
+endif()
+if(TARGET SDL2_image::SDL2_image)
+  target_link_libraries(course_sdl INTERFACE SDL2_image::SDL2_image)
+elseif(TARGET SDL2_image)
+  target_link_libraries(course_sdl INTERFACE SDL2_image)
 endif()
 
 # Advertencias comunes
