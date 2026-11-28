@@ -2,7 +2,7 @@ name: Web (GitHub Pages)
 
 on:
   push:
-    branches: [sumativa-1]
+    branches: [web-pages]
     paths:
       - "labs/s06_sumativa_i/web/dist/**"
       - ".github/workflows/web-pages.yml"
