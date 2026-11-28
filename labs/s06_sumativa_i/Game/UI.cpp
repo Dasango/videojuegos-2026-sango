@@ -15,10 +15,11 @@ void UI::dibujarMenu(SDL_Renderer* r, SDL_Texture* spriteBotella, float tiempoMe
                      int opcionMenu) const {
     SDL_SetRenderDrawColor(r, 18, 70, 32, 255);
     SDL_RenderClear(r);
-    dibujarTexto(r, (kVentanaW - anchoTexto("LA BOTELLA", 4)) / 2, 70, "LA BOTELLA", 4, 255, 255,
+    dibujarTexto(r, (kVentanaW - anchoTexto("SPRITESHEET", 4)) / 2, 70, "SPRITESHEET", 4, 255, 255,
                  255);
-    dibujarTexto(r, (kVentanaW - anchoTexto("LLEGA ARRIBA", 2)) / 2, 130, "LLEGA ARRIBA", 2, 220,
-                 240, 180);
+    dibujarTexto(
+        r, (kVentanaW - anchoTexto("Tip: Caer sobre cajas reduce el impacto y da puntos", 2)) / 2,
+        130, "Tip: Caer sobre cajas reduce el impacto y da puntos", 2, 220, 240, 180);
 
     if (spriteBotella) {
         int frame = static_cast<int>(tiempoMenu * 8.0f) % 9;
