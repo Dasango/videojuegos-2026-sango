@@ -74,11 +74,67 @@
     color: #e8f5e9;
   }
 
-  /* Controles tactiles (celular) */
-  #touch { display: none; width: min(960px, 100%); margin-top: 4px; }
-  #touch .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-  #touch .pad { display: grid; grid-template-columns: repeat(3, 64px); grid-template-rows: repeat(3, 64px); gap: 6px; }
-  #touch .actions { display: grid; grid-template-columns: repeat(2, 76px); grid-template-rows: repeat(2, 76px); gap: 8px; }
+  /* ---------- Controles tactiles (solo celular) ---------- */
+  #touch {
+    display: none;
+    width: min(960px, 100%);
+    line-height: normal;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  /* Zona del mando: arriba. Toca en cualquier parte y el mando aparece bajo tu dedo. */
+  #stick-zone {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    border: 1px dashed #2e5d3a;
+    border-radius: 16px;
+    background: rgba(30, 58, 38, 0.35);
+    touch-action: none;
+    overflow: hidden;
+  }
+  #stick-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #7fa88a;
+    text-align: center;
+    padding: 0 16px;
+    pointer-events: none;
+  }
+  #stick-zone.activo #stick-hint { display: none; }
+  #stick-base {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    margin: -60px 0 0 -60px;
+    border-radius: 50%;
+    border: 2px solid #4a8a5e;
+    background: rgba(46, 93, 58, 0.55);
+    display: none;
+    pointer-events: none;
+  }
+  #stick-zone.activo #stick-base { display: block; }
+  #stick-knob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    border-radius: 50%;
+    background: #6fcf97;
+    border: 2px solid #e8f5e9;
+    pointer-events: none;
+  }
+
+  /* Botones abajo: OK y pausa */
+  #touch .botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tbtn {
     -webkit-appearance: none;
     appearance: none;
@@ -86,9 +142,10 @@
     border: 1px solid #4a8a5e;
     border-radius: 12px;
     color: #f1f8f2;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 1;
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,18 +156,18 @@
     cursor: pointer;
   }
   .tbtn:active, .tbtn.activo { background: #6fcf97; color: #0c1c10; }
-  .tbtn.vacio { visibility: hidden; }
-  .tbtn.chico { font-size: 0.78rem; }
 
   @media (pointer: coarse) {
     #controles { display: none; }
-    #touch { display: block; }
+    #touch { display: flex; }
     body { justify-content: flex-start; }
     h1 { font-size: 1.05rem; }
   }
   @media (pointer: coarse) and (orientation: landscape) {
-    #touch .pad { grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); }
-    #touch .actions { grid-template-columns: repeat(2, 62px); grid-template-rows: repeat(2, 62px); }
+    #stick-zone { height: 130px; }
+    #stick-base { width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+    #stick-knob { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+    .tbtn { height: 46px; }
   }
 </style>
 </head>
@@ -121,27 +178,16 @@
   <canvas id="canvas" width="960" height="600" tabindex="0"
           oncontextmenu="event.preventDefault()" aria-label="Area de juego"></canvas>
   <div id="status">Cargando juego&hellip;</div>
+</div>
 
-  <div id="touch" aria-label="Controles tactiles">
-    <div class="row">
-      <div class="pad" role="group" aria-label="Movimiento">
-        <span class="tbtn vacio"></span>
-        <button class="tbtn" type="button" data-key="w" data-code="KeyW" data-keycode="87" aria-label="Avanzar">&#9650;</button>
-        <span class="tbtn vacio"></span>
-        <button class="tbtn" type="button" data-key="a" data-code="KeyA" data-keycode="65" aria-label="Girar izquierda">&#9664;</button>
-        <span class="tbtn vacio"></span>
-        <button class="tbtn" type="button" data-key="d" data-code="KeyD" data-keycode="68" aria-label="Girar derecha">&#9654;</button>
-        <span class="tbtn vacio"></span>
-        <button class="tbtn" type="button" data-key="s" data-code="KeyS" data-keycode="83" aria-label="Retroceder">&#9660;</button>
-        <span class="tbtn vacio"></span>
-      </div>
-      <div class="actions" role="group" aria-label="Acciones">
-        <button class="tbtn chico" type="button" data-key="Enter" data-code="Enter" data-keycode="13" aria-label="Menu / aceptar">OK</button>
-        <button class="tbtn chico" type="button" data-key="p" data-code="KeyP" data-keycode="80" aria-label="Pausa">&#10073;&#10073;</button>
-        <button class="tbtn" type="button" data-key=" " data-code="Space" data-keycode="32" aria-label="Saltar">Salto</button>
-        <span class="tbtn vacio"></span>
-      </div>
-    </div>
+<div id="touch" aria-label="Controles tactiles">
+  <div id="stick-zone" aria-label="Mando de movimiento">
+    <div id="stick-hint">Mant&eacute;n el dedo aqu&iacute; para moverte.<br>Levanta el dedo para saltar.</div>
+    <div id="stick-base"><div id="stick-knob"></div></div>
+  </div>
+  <div class="botones">
+    <button class="tbtn" type="button" data-key="Enter" data-code="Enter" data-keycode="13" aria-label="Menu / aceptar">OK</button>
+    <button class="tbtn" type="button" data-key="p" data-code="KeyP" data-keycode="80" aria-label="Pausa">&#10073;&#10073; Pausa</button>
   </div>
 </div>
 
@@ -189,22 +235,113 @@
     document.addEventListener(t, function (e) { e.preventDefault(); }, { passive: false });
   });
 
-  // Controles tactiles -> eventos de teclado sinteticos que SDL2 (emscripten) entiende.
-  function enviarTecla(tipo, btn) {
-    var keyCode = parseInt(btn.getAttribute('data-keycode'), 10) || 0;
-    var ev = new KeyboardEvent(tipo, {
-      key: btn.getAttribute('data-key'),
-      code: btn.getAttribute('data-code'),
-      bubbles: true,
-      cancelable: true
-    });
+  // ---------- Teclas sinteticas que SDL2 (emscripten) entiende ----------
+  var TECLAS = {
+    w:     { key: 'w',     code: 'KeyW',  kc: 87 },
+    a:     { key: 'a',     code: 'KeyA',  kc: 65 },
+    s:     { key: 's',     code: 'KeyS',  kc: 83 },
+    d:     { key: 'd',     code: 'KeyD',  kc: 68 },
+    space: { key: ' ',     code: 'Space', kc: 32 }
+  };
+
+  function enviarEvento(tipo, key, code, keyCode) {
+    var ev = new KeyboardEvent(tipo, { key: key, code: code, bubbles: true, cancelable: true });
     Object.defineProperty(ev, 'keyCode', { get: function () { return keyCode; } });
     Object.defineProperty(ev, 'which', { get: function () { return keyCode; } });
     window.dispatchEvent(ev);
   }
 
+  var presionadas = {};
+  function setTecla(nombre, on) {
+    if (!!presionadas[nombre] === on) return;   // solo enviar cuando cambia
+    presionadas[nombre] = on;
+    var t = TECLAS[nombre];
+    enviarEvento(on ? 'keydown' : 'keyup', t.key, t.code, t.kc);
+  }
+
+  function saltar() {
+    var t = TECLAS.space;
+    enviarEvento('keydown', t.key, t.code, t.kc);
+    setTimeout(function () { enviarEvento('keyup', t.key, t.code, t.kc); }, 80);
+  }
+
+  // ---------- Mando flotante ----------
+  (function () {
+    var zona = document.getElementById('stick-zone');
+    var base = document.getElementById('stick-base');
+    var knob = document.getElementById('stick-knob');
+    var pointerId = null;
+    var ox = 0, oy = 0;      // centro del mando (px dentro de la zona)
+    var RADIO = 48;          // recorrido maximo del stick
+    var UMBRAL = 0.35;       // fraccion del radio para activar una direccion
+
+    function actualizar(e) {
+      var r = zona.getBoundingClientRect();
+      var dx = (e.clientX - r.left) - ox;
+      var dy = (e.clientY - r.top) - oy;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var kx = dx, ky = dy;
+      if (dist > RADIO) { kx = dx / dist * RADIO; ky = dy / dist * RADIO; }
+      knob.style.transform = 'translate(' + kx + 'px,' + ky + 'px)';
+
+      var u = RADIO * UMBRAL;
+      // Cada eje es independiente: permite diagonales (W+A, W+D, S+A, S+D).
+      setTecla('w', dy < -u);
+      setTecla('s', dy > u);
+      setTecla('a', dx < -u);
+      setTecla('d', dx > u);
+    }
+
+    function soltarTodo() {
+      setTecla('w', false);
+      setTecla('a', false);
+      setTecla('s', false);
+      setTecla('d', false);
+    }
+
+    zona.addEventListener('pointerdown', function (e) {
+      e.preventDefault();
+      if (pointerId !== null) return;
+      pointerId = e.pointerId;
+      try { zona.setPointerCapture(e.pointerId); } catch (err) {}
+      var r = zona.getBoundingClientRect();
+      var m = RADIO + 12;
+      ox = Math.max(m, Math.min(r.width - m, e.clientX - r.left));
+      oy = Math.max(m, Math.min(r.height - m, e.clientY - r.top));
+      base.style.left = ox + 'px';
+      base.style.top = oy + 'px';
+      knob.style.transform = 'translate(0,0)';
+      zona.classList.add('activo');
+      canvas.focus();
+      actualizar(e);
+    });
+
+    zona.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== pointerId) return;
+      e.preventDefault();
+      actualizar(e);
+    });
+
+    function terminar(e, saltarAlSoltar) {
+      if (e.pointerId !== pointerId) return;
+      e.preventDefault();
+      pointerId = null;
+      zona.classList.remove('activo');
+      soltarTodo();
+      if (saltarAlSoltar) saltar();   // levantar el dedo = saltar
+    }
+    zona.addEventListener('pointerup', function (e) { terminar(e, true); });
+    zona.addEventListener('pointercancel', function (e) { terminar(e, false); });
+    zona.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  })();
+
+  // ---------- Botones OK / Pausa ----------
   Array.prototype.forEach.call(document.querySelectorAll('#touch .tbtn[data-key]'), function (btn) {
     var activo = false;
+    var keyCode = parseInt(btn.getAttribute('data-keycode'), 10) || 0;
+    function enviar(tipo) {
+      enviarEvento(tipo, btn.getAttribute('data-key'), btn.getAttribute('data-code'), keyCode);
+    }
     function down(e) {
       e.preventDefault();
       if (activo) return;
@@ -213,7 +350,7 @@
       if (btn.setPointerCapture && e.pointerId !== undefined) {
         try { btn.setPointerCapture(e.pointerId); } catch (err) {}
       }
-      enviarTecla('keydown', btn);
+      enviar('keydown');
       canvas.focus();
     }
     function up(e) {
@@ -221,7 +358,7 @@
       if (!activo) return;
       activo = false;
       btn.classList.remove('activo');
-      enviarTecla('keyup', btn);
+      enviar('keyup');
     }
     btn.addEventListener('pointerdown', down);
     btn.addEventListener('pointerup', up);
