@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="description" content="Evaluacion Sumativa I - jugable en el navegador con WebAssembly.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Evaluacion Sumativa I - jugable en el navegador y en celular con WebAssembly.">
 <title>Evaluacion Sumativa I</title>
 <style>
   :root { color-scheme: dark; }
@@ -18,19 +20,27 @@
     align-items: center;
     justify-content: center;
     min-height: 100%;
-    gap: 14px;
-    padding: 16px;
+    gap: 12px;
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+             max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
   }
-  h1 { font-size: 1.25rem; margin: 0; font-weight: 600; letter-spacing: 0.02em; }
-  #app { position: relative; line-height: 0; }
+  h1 { font-size: 1.2rem; margin: 0; font-weight: 600; letter-spacing: 0.02em; }
+  #app { position: relative; line-height: 0; width: min(960px, 100%); }
   canvas#canvas {
+    display: block;
     background: #0c1c10;
     border: 2px solid #2e5d3a;
     border-radius: 6px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    aspect-ratio: 960 / 600;
     outline: none;
     touch-action: none;
   }
@@ -63,6 +73,45 @@
     font-family: inherit;
     color: #e8f5e9;
   }
+
+  /* Controles tactiles (celular) */
+  #touch { display: none; width: min(960px, 100%); margin-top: 4px; }
+  #touch .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  #touch .pad { display: grid; grid-template-columns: repeat(3, 64px); grid-template-rows: repeat(3, 64px); gap: 6px; }
+  #touch .actions { display: grid; grid-template-columns: repeat(2, 76px); grid-template-rows: repeat(2, 76px); gap: 8px; }
+  .tbtn {
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(46, 93, 58, 0.92);
+    border: 1px solid #4a8a5e;
+    border-radius: 12px;
+    color: #f1f8f2;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+  }
+  .tbtn:active, .tbtn.activo { background: #6fcf97; color: #0c1c10; }
+  .tbtn.vacio { visibility: hidden; }
+  .tbtn.chico { font-size: 0.78rem; }
+
+  @media (pointer: coarse) {
+    #controles { display: none; }
+    #touch { display: block; }
+    body { justify-content: flex-start; }
+    h1 { font-size: 1.05rem; }
+  }
+  @media (pointer: coarse) and (orientation: landscape) {
+    #touch .pad { grid-template-columns: repeat(3, 54px); grid-template-rows: repeat(3, 54px); }
+    #touch .actions { grid-template-columns: repeat(2, 62px); grid-template-rows: repeat(2, 62px); }
+  }
 </style>
 </head>
 <body>
@@ -72,6 +121,28 @@
   <canvas id="canvas" width="960" height="600" tabindex="0"
           oncontextmenu="event.preventDefault()" aria-label="Area de juego"></canvas>
   <div id="status">Cargando juego&hellip;</div>
+
+  <div id="touch" aria-label="Controles tactiles">
+    <div class="row">
+      <div class="pad" role="group" aria-label="Movimiento">
+        <span class="tbtn vacio"></span>
+        <button class="tbtn" type="button" data-key="w" data-code="KeyW" data-keycode="87" aria-label="Avanzar">&#9650;</button>
+        <span class="tbtn vacio"></span>
+        <button class="tbtn" type="button" data-key="a" data-code="KeyA" data-keycode="65" aria-label="Girar izquierda">&#9664;</button>
+        <span class="tbtn vacio"></span>
+        <button class="tbtn" type="button" data-key="d" data-code="KeyD" data-keycode="68" aria-label="Girar derecha">&#9654;</button>
+        <span class="tbtn vacio"></span>
+        <button class="tbtn" type="button" data-key="s" data-code="KeyS" data-keycode="83" aria-label="Retroceder">&#9660;</button>
+        <span class="tbtn vacio"></span>
+      </div>
+      <div class="actions" role="group" aria-label="Acciones">
+        <button class="tbtn chico" type="button" data-key="Enter" data-code="Enter" data-keycode="13" aria-label="Menu / aceptar">OK</button>
+        <button class="tbtn chico" type="button" data-key="p" data-code="KeyP" data-keycode="80" aria-label="Pausa">&#10073;&#10073;</button>
+        <button class="tbtn" type="button" data-key=" " data-code="Space" data-keycode="32" aria-label="Saltar">Salto</button>
+        <span class="tbtn vacio"></span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="controles">
@@ -112,6 +183,53 @@
   };
 
   canvas.addEventListener('click', function () { canvas.focus(); });
+
+  // Evita scroll/zoom del navegador en movil.
+  ['touchstart', 'touchmove', 'touchend', 'gesturestart'].forEach(function (t) {
+    document.addEventListener(t, function (e) { e.preventDefault(); }, { passive: false });
+  });
+
+  // Controles tactiles -> eventos de teclado sinteticos que SDL2 (emscripten) entiende.
+  function enviarTecla(tipo, btn) {
+    var keyCode = parseInt(btn.getAttribute('data-keycode'), 10) || 0;
+    var ev = new KeyboardEvent(tipo, {
+      key: btn.getAttribute('data-key'),
+      code: btn.getAttribute('data-code'),
+      bubbles: true,
+      cancelable: true
+    });
+    Object.defineProperty(ev, 'keyCode', { get: function () { return keyCode; } });
+    Object.defineProperty(ev, 'which', { get: function () { return keyCode; } });
+    window.dispatchEvent(ev);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('#touch .tbtn[data-key]'), function (btn) {
+    var activo = false;
+    function down(e) {
+      e.preventDefault();
+      if (activo) return;
+      activo = true;
+      btn.classList.add('activo');
+      if (btn.setPointerCapture && e.pointerId !== undefined) {
+        try { btn.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      enviarTecla('keydown', btn);
+      canvas.focus();
+    }
+    function up(e) {
+      e.preventDefault();
+      if (!activo) return;
+      activo = false;
+      btn.classList.remove('activo');
+      enviarTecla('keyup', btn);
+    }
+    btn.addEventListener('pointerdown', down);
+    btn.addEventListener('pointerup', up);
+    btn.addEventListener('pointercancel', up);
+    btn.addEventListener('pointerleave', up);
+    btn.addEventListener('touchstart', function (e) { e.preventDefault(); }, { passive: false });
+    btn.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  });
 
   window.addEventListener('error', function () {
     setStatus('No se pudo iniciar el juego. Revisa la consola (F12).');
