@@ -74,100 +74,135 @@
     color: #e8f5e9;
   }
 
-  /* ---------- Controles tactiles (solo celular) ---------- */
-  #touch {
-    display: none;
-    width: min(960px, 100%);
-    line-height: normal;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
+  /* ---------- Controles tactiles (solo celular, encima del juego) ---------- */
+  #touch { display: none; line-height: normal; }
+  #girar { display: none; }
 
-  /* Zona del mando: arriba. Toca en cualquier parte y el mando aparece bajo tu dedo. */
-  #stick-zone {
-    position: relative;
-    width: 100%;
-    height: 190px;
-    border: 1px dashed #2e5d3a;
-    border-radius: 16px;
-    background: rgba(30, 58, 38, 0.35);
-    touch-action: none;
-    overflow: hidden;
-  }
-  #stick-hint {
+  .zona {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    touch-action: none;
+  }
+  #zona-izq { left: 0; }
+  #zona-der { right: 0; }
+
+  /* Guia muy tenue, visible solo cuando no hay dedo */
+  .guia {
+    position: absolute;
+    bottom: 16%;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.16);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
-    color: #7fa88a;
-    text-align: center;
-    padding: 0 16px;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.2);
     pointer-events: none;
   }
-  #stick-zone.activo #stick-hint { display: none; }
-  #stick-base {
+  #zona-izq .guia { left: 14%; }
+  #zona-der .guia { right: 14%; }
+  .zona.activo .guia { display: none; }
+
+  .base {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    margin: -60px 0 0 -60px;
+    width: 110px;
+    height: 110px;
+    margin: -55px 0 0 -55px;
     border-radius: 50%;
-    border: 2px solid #4a8a5e;
-    background: rgba(46, 93, 58, 0.55);
+    border: 2px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.07);
     display: none;
     pointer-events: none;
   }
-  #stick-zone.activo #stick-base { display: block; }
-  #stick-knob {
+  .zona.activo .base { display: block; }
+  .knob {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 56px;
-    height: 56px;
-    margin: -28px 0 0 -28px;
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
     border-radius: 50%;
-    background: #6fcf97;
-    border: 2px solid #e8f5e9;
+    background: rgba(255, 255, 255, 0.38);
     pointer-events: none;
   }
 
-  /* Botones abajo: OK y pausa */
-  #touch .botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  #botones {
+    position: absolute;
+    top: max(8px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 6;
+  }
   .tbtn {
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(46, 93, 58, 0.92);
-    border: 1px solid #4a8a5e;
-    border-radius: 12px;
-    color: #f1f8f2;
-    font-size: 1rem;
+    min-width: 52px;
+    height: 34px;
+    background: rgba(46, 93, 58, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
     font-weight: 600;
     line-height: 1;
-    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0 12px;
     touch-action: none;
     user-select: none;
     -webkit-user-select: none;
     cursor: pointer;
   }
-  .tbtn:active, .tbtn.activo { background: #6fcf97; color: #0c1c10; }
+  .tbtn:active, .tbtn.activo { background: rgba(111, 207, 151, 0.9); color: #0c1c10; }
 
   @media (pointer: coarse) {
-    #controles { display: none; }
-    #touch { display: flex; }
-    body { justify-content: flex-start; }
-    h1 { font-size: 1.05rem; }
+    #controles, h1 { display: none; }
+    body { padding: 0; gap: 0; height: 100vh; height: 100dvh; overflow: hidden; }
+    #app {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    canvas#canvas {
+      width: min(100vw, calc(100dvh * 1.6));
+      height: auto;
+      border: none;
+      border-radius: 0;
+    }
+    #touch { display: block; position: fixed; inset: 0; z-index: 5; }
   }
-  @media (pointer: coarse) and (orientation: landscape) {
-    #stick-zone { height: 130px; }
-    #stick-base { width: 96px; height: 96px; margin: -48px 0 0 -48px; }
-    #stick-knob { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
-    .tbtn { height: 46px; }
+
+  /* Pide girar el celular si esta vertical */
+  @media (pointer: coarse) and (orientation: portrait) {
+    #girar {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: #0c1c10;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      text-align: center;
+      padding: 24px;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+    #girar .icono { font-size: 3rem; transform: rotate(90deg); }
   }
 </style>
 </head>
@@ -181,14 +216,25 @@
 </div>
 
 <div id="touch" aria-label="Controles tactiles">
-  <div id="stick-zone" aria-label="Mando de movimiento">
-    <div id="stick-hint">Mant&eacute;n el dedo aqu&iacute; para moverte.<br>Levanta el dedo para saltar.</div>
-    <div id="stick-base"><div id="stick-knob"></div></div>
+  <!-- Izquierda: avanzar / retroceder (W / S) -->
+  <div class="zona" id="zona-izq" aria-label="Mando para avanzar">
+    <div class="guia">&#9650;&#9660;</div>
+    <div class="base"><div class="knob"></div></div>
   </div>
-  <div class="botones">
+  <!-- Derecha: apuntar / girar (A / D) -->
+  <div class="zona" id="zona-der" aria-label="Mando para apuntar">
+    <div class="guia">&#9664;&#9654;</div>
+    <div class="base"><div class="knob"></div></div>
+  </div>
+  <div id="botones">
     <button class="tbtn" type="button" data-key="Enter" data-code="Enter" data-keycode="13" aria-label="Menu / aceptar">OK</button>
-    <button class="tbtn" type="button" data-key="p" data-code="KeyP" data-keycode="80" aria-label="Pausa">&#10073;&#10073; Pausa</button>
+    <button class="tbtn" type="button" data-key="p" data-code="KeyP" data-keycode="80" aria-label="Pausa">&#10073;&#10073;</button>
   </div>
+</div>
+
+<div id="girar">
+  <div class="icono">&#128241;</div>
+  <div>Gira tu celular<br>a horizontal para jugar</div>
 </div>
 
 <div id="controles">
@@ -237,11 +283,11 @@
 
   // ---------- Teclas sinteticas que SDL2 (emscripten) entiende ----------
   var TECLAS = {
-    w:     { key: 'w',     code: 'KeyW',  kc: 87 },
-    a:     { key: 'a',     code: 'KeyA',  kc: 65 },
-    s:     { key: 's',     code: 'KeyS',  kc: 83 },
-    d:     { key: 'd',     code: 'KeyD',  kc: 68 },
-    space: { key: ' ',     code: 'Space', kc: 32 }
+    w:     { key: 'w', code: 'KeyW',  kc: 87 },
+    a:     { key: 'a', code: 'KeyA',  kc: 65 },
+    s:     { key: 's', code: 'KeyS',  kc: 83 },
+    d:     { key: 'd', code: 'KeyD',  kc: 68 },
+    space: { key: ' ', code: 'Space', kc: 32 }
   };
 
   function enviarEvento(tipo, key, code, keyCode) {
@@ -259,44 +305,85 @@
     enviarEvento(on ? 'keydown' : 'keyup', t.key, t.code, t.kc);
   }
 
+  var ultimoSalto = 0;
   function saltar() {
+    var ahora = Date.now();
+    if (ahora - ultimoSalto < 450) return;
+    ultimoSalto = ahora;
     var t = TECLAS.space;
     enviarEvento('keydown', t.key, t.code, t.kc);
     setTimeout(function () { enviarEvento('keyup', t.key, t.code, t.kc); }, 80);
   }
 
-  // ---------- Mando flotante ----------
-  (function () {
-    var zona = document.getElementById('stick-zone');
-    var base = document.getElementById('stick-base');
-    var knob = document.getElementById('stick-knob');
+  // ---------- Pantalla completa + horizontal (si el navegador lo permite) ----------
+  var intentoFullscreen = false;
+  function intentarHorizontal() {
+    if (intentoFullscreen) return;
+    intentoFullscreen = true;
+    try {
+      var el = document.documentElement;
+      var req = el.requestFullscreen || el.webkitRequestFullscreen;
+      if (req) {
+        var p = req.call(el);
+        var bloquear = function () {
+          try {
+            if (screen.orientation && screen.orientation.lock) {
+              screen.orientation.lock('landscape').catch(function () {});
+            }
+          } catch (e) {}
+        };
+        if (p && p.then) { p.then(bloquear).catch(function () {}); } else { bloquear(); }
+      }
+    } catch (e) {}
+  }
+  document.getElementById('touch').addEventListener('pointerdown', intentarHorizontal, true);
+
+  // ---------- Mandos flotantes (uno por mitad de pantalla) ----------
+  // eje 'y' -> W/S   |   eje 'x' -> A/D
+  // Un deslizamiento rapido hacia arriba con cualquiera de los dos dedos = salto.
+  function crearMando(idZona, eje) {
+    var zona = document.getElementById(idZona);
+    var base = zona.querySelector('.base');
+    var knob = zona.querySelector('.knob');
     var pointerId = null;
-    var ox = 0, oy = 0;      // centro del mando (px dentro de la zona)
-    var RADIO = 48;          // recorrido maximo del stick
-    var UMBRAL = 0.35;       // fraccion del radio para activar una direccion
+    var ox = 0, oy = 0;
+    var historial = [];
+    var RADIO = 50;         // recorrido maximo del mando
+    var UMBRAL = 0.3;       // fraccion del radio para activar la direccion
+    var FLICK_DIST = 70;    // px hacia arriba...
+    var FLICK_MS = 170;     // ...dentro de este tiempo = salto
+
+    function soltarTeclas() {
+      if (eje === 'y') { setTecla('w', false); setTecla('s', false); }
+      else { setTecla('a', false); setTecla('d', false); }
+    }
+
+    function detectarSalto(e) {
+      var ahora = performance.now();
+      historial.push({ t: ahora, y: e.clientY });
+      while (historial.length > 1 && ahora - historial[0].t > FLICK_MS) historial.shift();
+      if (historial[0].y - e.clientY > FLICK_DIST) {
+        historial = [{ t: ahora, y: e.clientY }];
+        saltar();
+      }
+    }
 
     function actualizar(e) {
       var r = zona.getBoundingClientRect();
       var dx = (e.clientX - r.left) - ox;
       var dy = (e.clientY - r.top) - oy;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      var kx = dx, ky = dy;
-      if (dist > RADIO) { kx = dx / dist * RADIO; ky = dy / dist * RADIO; }
-      knob.style.transform = 'translate(' + kx + 'px,' + ky + 'px)';
-
       var u = RADIO * UMBRAL;
-      // Cada eje es independiente: permite diagonales (W+A, W+D, S+A, S+D).
-      setTecla('w', dy < -u);
-      setTecla('s', dy > u);
-      setTecla('a', dx < -u);
-      setTecla('d', dx > u);
-    }
-
-    function soltarTodo() {
-      setTecla('w', false);
-      setTecla('a', false);
-      setTecla('s', false);
-      setTecla('d', false);
+      if (eje === 'y') {
+        var ky = Math.max(-RADIO, Math.min(RADIO, dy));
+        knob.style.transform = 'translate(0,' + ky + 'px)';
+        setTecla('w', dy < -u);
+        setTecla('s', dy > u);
+      } else {
+        var kx = Math.max(-RADIO, Math.min(RADIO, dx));
+        knob.style.transform = 'translate(' + kx + 'px,0)';
+        setTecla('a', dx < -u);
+        setTecla('d', dx > u);
+      }
     }
 
     zona.addEventListener('pointerdown', function (e) {
@@ -305,35 +392,39 @@
       pointerId = e.pointerId;
       try { zona.setPointerCapture(e.pointerId); } catch (err) {}
       var r = zona.getBoundingClientRect();
-      var m = RADIO + 12;
+      var m = RADIO + 8;
       ox = Math.max(m, Math.min(r.width - m, e.clientX - r.left));
       oy = Math.max(m, Math.min(r.height - m, e.clientY - r.top));
       base.style.left = ox + 'px';
       base.style.top = oy + 'px';
       knob.style.transform = 'translate(0,0)';
       zona.classList.add('activo');
+      historial = [{ t: performance.now(), y: e.clientY }];
       canvas.focus();
-      actualizar(e);
     });
 
     zona.addEventListener('pointermove', function (e) {
       if (e.pointerId !== pointerId) return;
       e.preventDefault();
       actualizar(e);
+      detectarSalto(e);
     });
 
-    function terminar(e, saltarAlSoltar) {
+    function terminar(e) {
       if (e.pointerId !== pointerId) return;
       e.preventDefault();
       pointerId = null;
+      historial = [];
       zona.classList.remove('activo');
-      soltarTodo();
-      if (saltarAlSoltar) saltar();   // levantar el dedo = saltar
+      soltarTeclas();
     }
-    zona.addEventListener('pointerup', function (e) { terminar(e, true); });
-    zona.addEventListener('pointercancel', function (e) { terminar(e, false); });
+    zona.addEventListener('pointerup', terminar);
+    zona.addEventListener('pointercancel', terminar);
     zona.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-  })();
+  }
+
+  crearMando('zona-izq', 'y');   // avanzar / retroceder
+  crearMando('zona-der', 'x');   // apuntar / girar
 
   // ---------- Botones OK / Pausa ----------
   Array.prototype.forEach.call(document.querySelectorAll('#touch .tbtn[data-key]'), function (btn) {
@@ -344,6 +435,7 @@
     }
     function down(e) {
       e.preventDefault();
+      e.stopPropagation();
       if (activo) return;
       activo = true;
       btn.classList.add('activo');
