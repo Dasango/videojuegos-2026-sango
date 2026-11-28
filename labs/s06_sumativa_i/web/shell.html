@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Evaluacion Sumativa I - jugable en el navegador con WebAssembly.">
+<title>Evaluacion Sumativa I</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background: #0c1c10;
+    color: #e8f5e9;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    gap: 14px;
+    padding: 16px;
+  }
+  h1 { font-size: 1.25rem; margin: 0; font-weight: 600; letter-spacing: 0.02em; }
+  #app { position: relative; line-height: 0; }
+  canvas#canvas {
+    background: #0c1c10;
+    border: 2px solid #2e5d3a;
+    border-radius: 6px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    max-width: 100%;
+    height: auto;
+    outline: none;
+    touch-action: none;
+  }
+  #status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(12, 28, 16, 0.85);
+    font-size: 1rem;
+    border-radius: 6px;
+    line-height: 1.4;
+    text-align: center;
+    padding: 12px;
+  }
+  #status[hidden] { display: none; }
+  #controles {
+    font-size: 0.85rem;
+    color: #a8c5ad;
+    text-align: center;
+    max-width: 960px;
+    line-height: 1.5;
+  }
+  #controles kbd {
+    background: #1e3a26;
+    border: 1px solid #2e5d3a;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: inherit;
+    color: #e8f5e9;
+  }
+</style>
+</head>
+<body>
+<h1>Evaluaci&oacute;n Sumativa I</h1>
+
+<div id="app">
+  <canvas id="canvas" width="960" height="600" tabindex="0"
+          oncontextmenu="event.preventDefault()" aria-label="Area de juego"></canvas>
+  <div id="status">Cargando juego&hellip;</div>
+</div>
+
+<div id="controles">
+  <kbd>W</kbd>/<kbd>S</kbd> avanzar/retroceder &middot;
+  <kbd>A</kbd>/<kbd>D</kbd> girar &middot;
+  <kbd>Espacio</kbd> saltar &middot;
+  <kbd>Enter</kbd>/<kbd>Espacio</kbd> men&uacute; &middot;
+  <kbd>P</kbd>/<kbd>Esc</kbd> pausa &middot;
+  <kbd>H</kbd>/<kbd>F1</kbd> hitboxes &middot;
+  <kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> FPS &middot;
+  Haz clic en el juego para capturar el teclado
+</div>
+
+<script>
+  var canvas = document.getElementById('canvas');
+  var statusElement = document.getElementById('status');
+
+  function setStatus(text) {
+    if (!text) { statusElement.hidden = true; return; }
+    statusElement.hidden = false;
+    statusElement.innerHTML = text;
+  }
+
+  var Module = {
+    canvas: canvas,
+    print: function (text) { console.log(text); },
+    printErr: function (text) { console.error(text); },
+    setStatus: setStatus,
+    totalDependencies: 0,
+    monitorRunDependencies: function (left) {
+      this.totalDependencies = Math.max(this.totalDependencies, left);
+      setStatus(left ? 'Cargando&hellip; (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : '');
+    },
+    onRuntimeInitialized: function () {
+      setStatus('');
+      canvas.focus();
+    }
+  };
+
+  canvas.addEventListener('click', function () { canvas.focus(); });
+
+  window.addEventListener('error', function () {
+    setStatus('No se pudo iniciar el juego. Revisa la consola (F12).');
+  });
+
+  setStatus('Cargando juego&hellip;');
+</script>
+{{{ SCRIPT }}}
+</body>
+</html>
